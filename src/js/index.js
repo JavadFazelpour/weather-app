@@ -7,9 +7,17 @@ const currentCondition = document.querySelector("#current-condition");
 const tempHeader = document.querySelector("#temp");
 const uvIndex = document.querySelector("#uv-index");
 const humidity = document.querySelector("#humidity");
-const weatherCardForecast = document.querySelector(".weather-card.forecast");
+const weatherForecasts = document.querySelector(".forecasts");
 const searchInput = document.querySelector("#city");
 const submitBtn = document.querySelector("#submit");
+const unitCheckbox = document.querySelector("#unit-toggle-checkbox");
+let unit;
+window.addEventListener("load", () => {
+  setUnit();
+});
+unitCheckbox.addEventListener("change", (e) => {
+  setUnit();
+});
 
 submitBtn.addEventListener("click", async (e) => {
   e.preventDefault();
@@ -26,8 +34,11 @@ submitBtn.addEventListener("click", async (e) => {
   }
 });
 
+function setUnit() {
+  unitCheckbox.checked === false ? (unit = "°C") : (unit = "°F");
+}
+
 function updateDOM(data) {
-  console.log(data);
   const { city, currentConditionObj } = processFetchedData(data);
   updateCurrentWeather(city, currentConditionObj);
   processFutureWeatherData(data);
@@ -36,7 +47,7 @@ function updateDOM(data) {
 function updateCurrentWeather(city, currentConditionObj) {
   cityTitle.textContent = `Current Weather in ${city}`;
   currentCondition.textContent = currentConditionObj.conditions;
-  tempHeader.textContent = `${currentConditionObj.temp} °C`;
+  tempHeader.textContent = `${currentConditionObj.temp} ${unit}`;
   uvIndex.textContent = `${currentConditionObj.uvindex}`;
   humidity.textContent = `${currentConditionObj.humidity}%`;
 }
@@ -50,6 +61,7 @@ function processFetchedData(data) {
 
 function processFutureWeatherData(data) {
   const days = data.days;
+  weatherForecasts.innerHTML = "";
   for (let index = 1; index < days.length; index++) {
     const day = days[index];
     const forecastDiv = document.createElement("div");
@@ -60,13 +72,13 @@ function processFutureWeatherData(data) {
     const humidity = document.createElement("i");
     humidity.className = "wi wi-humidity";
     date.textContent = day.datetime;
-    temperature.textContent = `${day.temp} °C`;
+    temperature.textContent = `${day.temp} ${unit}`;
     condition.textContent = day.conditions;
     humidity.textContent = `   ${day.humidity}%`;
     forecastDiv.appendChild(date);
     forecastDiv.appendChild(temperature);
     forecastDiv.appendChild(condition);
     forecastDiv.appendChild(humidity);
-    weatherCardForecast.appendChild(forecastDiv);
+    weatherForecasts.appendChild(forecastDiv);
   }
 }
