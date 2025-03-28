@@ -13,11 +13,18 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ["style-loader", { loader: "css-loader", options: { url: true } }],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/i,
-        type: "asset/resource", // Handles images by outputting them as separate files
+        test: /\.(png|jpg|jpeg|gif|svg)$/i, // Handles images as separate files
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/, // Handles font files
+        type: "asset/resource",
+        generator: {
+          filename: "assets/fonts/[name][ext]", // Ensures correct font output location
+        },
       },
     ],
   },
