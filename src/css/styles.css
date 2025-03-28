@@ -1,0 +1,359 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* 10. Create a root stacking context */
+#root,
+#__next {
+  isolation: isolate;
+}
+
+:root {
+  /* Base Colors & Theme */
+  --background-color: #1a1a1a; /* Vibrant dark background */
+  --text-color: #f0f0f0; /* Vibrant text color */
+  --border-color: rgba(0, 77, 97, 0.5); /* Vibrant border color */
+  --vibrant-accent-primary: #004d61; /* Vibrant primary accent */
+  --vibrant-accent-secondary: #822659; /* Vibrant secondary accent */
+
+  /* Spacing & Sizing */
+  --card-padding: 1rem;
+  --gap: 1rem;
+  --small-gap: 0.5rem;
+  --nav-gap: 1.5rem;
+
+  /* Borders & Radius (using rem values for consistency) */
+  --border-width: 0.125rem;
+  --border-radius: 2rem;
+
+  /* Transitions */
+  --transition-duration: 0.3s;
+
+  /* Responsive Breakpoints & Card Width */
+  --breakpoint-mobile: 600px;
+  --card-fixed-width: 33vw; /* 1/3 of the screen width */
+
+  /* Button */
+  --button-hover-bg: rgba(255, 255, 255, 0.2);
+
+  /* Toggle Button */
+  --toggle-width: 5rem;
+  --toggle-height: 2.25rem;
+
+  /* Forecast */
+  --forecast-condition-width: 360px;
+  --forecast-title-size: 1.2rem;
+
+  /* RGB values for text and button hover background */
+  --text-color-rgb: 240, 240, 240;
+  --button-hover-bg-rgb: 255, 255, 255;
+}
+
+html {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 36px;
+}
+
+/* Style the header using flex */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--card-padding);
+  gap: var(--gap);
+}
+
+nav {
+  display: flex;
+  gap: var(--nav-gap);
+}
+
+/* Base style for weather cards */
+.weather-card-base {
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+}
+
+/* Weather Cards */
+.weather-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--card-padding); /* Still apply specific padding if needed */
+}
+
+/* Forecast Card (styled similar to current-weather) */
+.forecast {
+  /* Removed composes */
+  margin-top: var(--card-padding);
+}
+
+/* Header Section of Weather Card */
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Details Section */
+.weather-details {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap);
+}
+
+/* Weather Summary */
+.weather-summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-summary__temp {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--gap);
+}
+
+/* Weather Stats */
+.weather-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--small-gap);
+}
+
+.weather-stats__item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap);
+}
+
+/* Forecast Title & Day */
+.forecast__title {
+  font-size: var(--forecast-title-size);
+  font-weight: bold;
+}
+
+.forecast__day {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
+/* Button Styling */
+button#submit {
+  background-color: var(--vibrant-accent-primary);
+  color: var(--text-color);
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--border-radius) / 2);
+  cursor: pointer;
+  transition: background-color var(--transition-duration) ease,
+    transform var(--transition-duration) ease;
+  height: var(--toggle-height); /* Consistent height with input and toggle */
+}
+
+button#submit:hover {
+  background-color: var(--vibrant-accent-secondary);
+  transform: scale(1.05);
+}
+
+.forecast__day p:nth-child(3) {
+  /* Selects the third <p> element (condition) */
+  width: var(--forecast-condition-width);
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Show an ellipsis (...) for overflow */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.forecast__day i.wi-humidity {
+  margin-left: auto;
+}
+
+input[type="search"]#city {
+  padding: 0.5rem 0.75rem; /* Adjust horizontal padding as needed */
+  margin-right: 0.5rem;
+  border: var(--border-width) solid var(--vibrant-accent-primary);
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: inherit; /* Inherit font size from the html */
+  color: var(--text-color);
+  background-color: #222222; /* Slightly darker background */
+  transition: border-color var(--transition-duration) ease,
+    box-shadow var(--transition-duration) ease;
+  box-sizing: border-box; /* Ensure padding and border are inside the specified height */
+  height: var(--toggle-height); /* Consistent height with button and toggle */
+}
+
+input[type="search"]#city::placeholder {
+  color: rgba(
+    var(--text-color-rgb),
+    0.6
+  ); /* Slightly lighter placeholder text */
+}
+
+input[type="search"]#city:focus {
+  outline: none; /* Remove default focus outline */
+  border-color: #0080a3; /* Brighter primary accent for focus */
+  box-shadow: 0 0 0.3125rem rgba(var(--vibrant-accent-primary-rgb), 0.5); /* Subtle focus shadow */
+}
+
+/* If --text-color is not a direct color name, define an RGB version */
+:root {
+  --text-color-rgb: 240, 240, 240; /* Example for your text color */
+  --button-hover-bg-rgb: 255, 255, 255; /* Example for your button hover background */
+  --vibrant-accent-primary-rgb: 0, 77, 97;
+}
+
+.unit-toggle {
+  position: relative;
+  display: inline-block;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+}
+
+.unit-toggle input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.unit-toggle-label {
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(
+    --border-color
+  ); /* Background when Fahrenheit is active (default) */
+  border-radius: var(--toggle-height); /* Make it rounded */
+  transition: background-color 0.2s ease;
+}
+
+.unit-toggle-inner {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  right: 0.125rem;
+  bottom: 0.125rem;
+  background-color: var(--background-color); /* Inner background */
+  border-radius: calc(var(--toggle-height) - 0.25rem);
+  transition: background-color 0.2s ease;
+}
+
+.unit-toggle-switch {
+  position: absolute;
+  width: calc(var(--toggle-height) - 0.25rem);
+  height: calc(var(--toggle-height) - 0.25rem);
+  background-color: var(--text-color); /* Switch color */
+  border-radius: 50%;
+  top: 0.125rem;
+  left: 0.125rem;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+}
+
+.unit-toggle-options {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 0.625rem);
+  display: flex;
+  justify-content: space-between;
+  color: var(--background-color);
+  font-size: 0.8rem; /* Adjust font size */
+  font-weight: bold;
+  pointer-events: none; /* Don't interfere with the checkbox */
+}
+
+.unit-toggle-options span {
+  padding: 0.25rem 0.5rem;
+}
+
+/* Toggle state */
+.unit-toggle input:checked + .unit-toggle-label {
+  background-color: var(--border-color); /* Background when Celsius is active */
+}
+
+.unit-toggle input:checked + .unit-toggle-label .unit-toggle-inner {
+  background-color: var(--background-color);
+}
+
+.unit-toggle input:checked + .unit-toggle-label .unit-toggle-switch {
+  transform: translateX(calc(var(--toggle-width) - var(--toggle-height)));
+  background-color: var(--text-color);
+}
+
+.unit-toggle input:checked + .unit-toggle-label .unit-toggle-options {
+  color: var(--background-color);
+}

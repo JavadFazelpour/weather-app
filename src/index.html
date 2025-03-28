@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Radar</title>
+  </head>
+  <body>
+    <header>
+      <h1>Weather Radar</h1>
+      <nav>
+        <div class="unit-toggle">
+          <input type="checkbox" id="unit-toggle-checkbox" />
+          <label for="unit-toggle-checkbox" class="unit-toggle-label">
+            <span class="unit-toggle-inner"></span>
+            <span class="unit-toggle-switch"></span>
+            <span class="unit-toggle-options">
+              <span data-unit="celsius">°C</span>
+              <span data-unit="fahrenheit">°F</span>
+            </span>
+          </label>
+        </div>
+        <form action="" method="">
+          <input
+            type="search"
+            name="city"
+            id="city"
+            placeholder="Enter City Name"
+          />
+          <button type="submit" id="submit">Search</button>
+        </form>
+      </nav>
+    </header>
+    <main>
+      <div class="weather-card current-weather weather-card-base">
+        <div class="weather-header">
+          <h2 id="title"></h2>
+        </div>
+        <div class="weather-details">
+          <div class="weather-summary">
+            <div class="weather-summary__temp">
+              <h3 id="temp"></h3>
+            </div>
+            <p id="current-condition"></p>
+          </div>
+          <div class="weather-stats">
+            <div class="weather-stats__item">
+              <p>UV Index</p>
+              <p id="uv-index"></p>
+            </div>
+            <div class="weather-stats__item">
+              <p>Humidity</p>
+              <p id="humidity"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="weather-card forecast weather-card-base">
+        <h2 class="forecast__title">14-Day Weather Forecast</h2>
+      </div>
+    </main>
+  </body>
+</html>
